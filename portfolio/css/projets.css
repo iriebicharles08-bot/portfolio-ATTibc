@@ -1,0 +1,120 @@
+/* =========================================================
+   PROJETS : bande d'outils réparée, cartes d'images dessinées,
+   images et bouton cliquables vers le vrai projet.
+   Chargé APRÈS finitions.css.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   2) CARTES D'IMAGES : coins arrondis, ombre douce, étiquette
+   --------------------------------------------------------- */
+#projets .projet__grande > .visuel,
+#projets .projet__petite > .visuel {
+  border-radius: 14px;                                                   /* 14px = arrondi des coins */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .12), 0 30px 60px -35px rgba(0, 0, 0, .45);
+}
+
+/* EFFET : la carte s'incline en 3D vers la souris, avec un reflet qui suit le curseur (réglé par js/projets-liens.js) */
+#projets .carte-3d {
+  transform: perspective(900px) translateY(var(--haut, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .3s ease-out;
+  will-change: transform;
+}
+#projets .carte-3d:hover { --haut: -6px; }
+#projets .carte-3d > .visuel::after {                                    /* le reflet */
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(circle at var(--lx, 50%) var(--ly, 50%), rgba(255, 255, 255, .4), transparent 55%);
+  opacity: var(--lo, 0); transition: opacity .3s;
+}
+
+/* EFFET : un trait de lumière traverse l'image une fois, quand elle apparaît (marche aussi sur téléphone) */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.animations-reduites) #projets .carte-3d > .visuel::before {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .6) 50%, transparent 62%);
+    transform: translateX(-130%);
+  }
+  html:not(.animations-reduites) #projets .carte-3d.balaye > .visuel::before { animation: balayage 1.5s .5s ease-out 1 forwards; }
+}
+@keyframes balayage { to { transform: translateX(130%); } }
+
+/* petite image : bloc bleu décalé derrière, comme ta photo "À propos" */
+#projets .projet__petite { isolation: isolate; }
+#projets .projet__petite::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 14px;
+  background: var(--bleu, #4AA8FF);
+  transform: translate(14px, 14px);                                      /* 14px = décalage du bloc bleu */
+  transition: transform .5s var(--courbe, ease);
+}
+#projets .projet__petite:hover::before { transform: translate(6px, 6px); }
+
+/* étiquettes "Aperçu" (grande) et "Détail" (petite) */
+#projets .projet__grande::before, #projets .projet__petite::after {
+  position: absolute; top: .9rem; left: .9rem; z-index: 3; padding: .35rem .8rem; border-radius: 99px;
+  background: #fff; color: #000; pointer-events: none;
+  font: 700 .68rem/1 var(--police-texte, 'DM Sans', system-ui, sans-serif); letter-spacing: .12em; text-transform: uppercase;
+}
+#projets .projet__grande::before { content: "Aperçu"; }
+#projets .projet__petite::after  { content: "Détail"; }
+
+/* ---------------------------------------------------------
+   3) LIENS : le bouton "Découvrir le projet" + les images cliquables
+   --------------------------------------------------------- */
+#projets a.lien {
+  display: inline-flex; align-items: center; gap: .6rem; padding: .85rem 1.5rem;
+  border: 1px solid #000; border-radius: 99px; background: #000; color: #fff;
+  font: 700 .78rem/1 var(--police-texte, 'DM Sans', system-ui, sans-serif); letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+  transition: background-color .3s, color .3s, border-color .3s;
+}
+#projets a.lien:hover, #projets a.lien:focus-visible { background: var(--bleu, #4AA8FF); border-color: var(--bleu, #4AA8FF); color: #000; }
+#projets a.lien[href="#"] { display: none; }                              /* pas de vrai lien : pas de bouton */
+
+/* zone cliquable posée sur chaque image (créée par js/projets-liens.js) */
+.projet__cadre-lien { position: absolute; inset: 0; z-index: 4; display: block; overflow: hidden; border-radius: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* grande image : bandeau noir "Découvrir le projet" qui monte au survol (toujours visible sur téléphone) */
+.projet__cadre-lien--grande::after {
+  content: "Découvrir le projet  ↗";
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.1rem 1.3rem; background: #000; color: #fff;
+  font: 700 .8rem/1 var(--police-texte, 'DM Sans', system-ui, sans-serif); letter-spacing: .1em; text-transform: uppercase;
+  transform: translateY(100%); transition: transform .45s var(--courbe, ease);
+}
+.projet__cadre-lien--grande:hover::after { transform: none; }
+@media (hover: none) { .projet__cadre-lien--grande::after { transform: none; } }
+
+/* petite image : pastille bleue avec une flèche */
+.projet__cadre-lien--petite::after {
+  content: "↗"; position: absolute; right: .9rem; bottom: .9rem; width: 46px; height: 46px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--bleu, #4AA8FF); color: #000; font-size: 1.3rem; line-height: 1;
+  transition: transform .4s var(--courbe, ease);
+}
+.projet__cadre-lien--petite:hover::after { transform: scale(1.15); }
+
+/* ---------------------------------------------------------
+   4) TÉLÉPHONE : le bloc bleu reste dans l'écran
+   --------------------------------------------------------- */
+@media (max-width: 800px) {
+  #projets .projet__petite { margin-right: 14px !important; }
+  #projets .projet__petite::before { transform: translate(10px, 10px); }
+}
+
+/* ---------------------------------------------------------
+   5) GALERIE "Créations" : même famille de cartes
+   --------------------------------------------------------- */
+.galerie figure .visuel { border-radius: 14px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .1); transition: transform .45s var(--courbe, ease), box-shadow .45s; }
+@media (hover: hover) {
+  .galerie figure:hover .visuel { transform: translateY(-5px); box-shadow: 0 0 0 1px rgba(0, 0, 0, .15), 0 24px 40px -24px rgba(0, 0, 0, .4); }
+}
+
+/* ---------------------------------------------------------
+   Animations réduites : plus de mouvement sur les cartes
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  #projets .projet__grande, #projets .projet__petite, #projets .projet__petite::before,
+  .projet__cadre-lien--grande::after, .projet__cadre-lien--petite::after, .galerie figure .visuel { transition-duration: .01s; }
+}
+.animations-reduites #projets .projet__grande, .animations-reduites #projets .projet__petite, .animations-reduites #projets .projet__petite::before,
+.animations-reduites .projet__cadre-lien--grande::after, .animations-reduites .projet__cadre-lien--petite::after, .animations-reduites .galerie figure .visuel { transition-duration: .01s; }
+
+/* Animations réduites : cartes immobiles */
+@media (prefers-reduced-motion: reduce) { #projets .carte-3d { transform: none !important; } }
+.animations-reduites #projets .carte-3d { transform: none !important; }

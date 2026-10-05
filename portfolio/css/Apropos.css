@@ -1,0 +1,110 @@
+/* =========================================================
+   À PROPOS : grand titre, texte qui se révèle mot après mot, photo carrée à droite
+   Ce fichier REMPLACE entièrement css/apropos.css
+   ========================================================= */
+
+/* ----- RÉGLAGES : modifiez ici ----- */
+:root {
+  --police-gras: 'Archivo', 'Arial Black', sans-serif;   /* police du gros titre */
+  --apropos-fond: #FAFAFA;          /* fond de la section (blanc cassé) */
+  --apropos-texte: #151515;         /* texte une fois révélé (presque noir) */
+  --apropos-texte-pale: #D2D2D2;    /* texte pas encore révélé (gris très clair) */
+  --mot-cle-couleur: #B0612F;       /* mots clés une fois révélés. Mettre #151515 pour du noir pur */
+  --melange: normal;                /* "multiply" pour fondre la photo dans le fond */
+}
+
+/* ----- Fond de la page ----- */
+body {
+  --fond: #FFFFFF; --texte: #14233A;
+  background-color: var(--fond);
+  color: var(--texte);
+  transition: background-color .9s ease, color .9s ease;
+}
+body[data-ambiance="blanc"]    { --fond: #FFFFFF; --texte: #14233A; }
+body[data-ambiance="ivoire"]   { --fond: #F6F1E7; --texte: #14233A; }
+body[data-ambiance="creme"]    { --fond: #EBE2D0; --texte: #14233A; }
+body[data-ambiance="marine"]   { --fond: #14233A; --texte: #F6F1E7; }
+body[data-ambiance="cannelle"] { --fond: #B0612F; --texte: #FFFFFF; }
+body[data-ambiance="marine"] .etiquette { color: rgba(246, 241, 231, .65); }
+
+/* =========================================================
+   LA SECTION : elle reste à l'écran pendant que le texte se révèle
+   ========================================================= */
+.apropos { display: block; position: relative; height: 300vh; min-height: 0; padding: 0; }
+
+.apropos__scene {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr auto;          /* texte à gauche, photo à droite */
+  grid-template-rows: auto 1fr;             /* titre en haut, puis le contenu */
+  column-gap: calc(var(--marge) * 1.2);
+  padding: 4.5rem var(--marge) 2.5rem;
+  background-color: var(--apropos-fond);
+  color: var(--apropos-texte);
+}
+
+/* Le gros titre centré */
+.apropos__titre {
+  grid-column: 1 / -1;
+  margin: 1rem 0 0;
+  color: #111;
+  font-family: var(--police-gras);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: clamp(2.4rem, 7.2vw, 6.5rem);
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Le texte */
+.apropos__texte { align-self: center; max-width: 42em; }
+.apropos__paragraphe {
+  margin: 0 0 2rem;
+  font: 400 clamp(1.1rem, 1.6vw, 1.45rem) / 1.65 var(--police-texte);
+}
+
+/* Chaque mot est gris clair, puis devient foncé quand on défile ("revele" ajouté par js/ambiances.js) */
+.mot-rev { color: var(--apropos-texte-pale); transition: color .35s ease; }
+.mot-rev.revele { color: var(--apropos-texte); }
+.mot-rev.cle { font-weight: 700; }
+.mot-rev.cle.revele { color: var(--mot-cle-couleur); }
+
+/* Le bouton noir arrondi */
+.apropos .bouton--plein { background: #151515; border-color: #151515; color: #fff; text-transform: none; letter-spacing: .02em; font-size: .9rem; }
+.apropos .bouton--plein:hover { background: var(--cannelle); border-color: var(--cannelle); }
+
+/* La photo : carrée, sans bordure, à droite */
+.apropos__photo { align-self: center; justify-self: end; width: min(26vw, 52vh); aspect-ratio: 1; margin: 0; }
+.apropos__photo .visuel { width: 100%; height: 100%; background: #E9E9E9; color: #8a8a8a; }
+.apropos__photo img { mix-blend-mode: var(--melange); }
+
+/* Arrivée : le texte vient de la gauche, la photo de la droite, ils se rejoignent */
+.apropos__texte, .apropos__photo { transition: opacity 1s var(--courbe), transform 1.2s var(--courbe), max-height .9s var(--courbe), width .9s var(--courbe); }
+.js-pret .apropos__scene:not(.entree) .apropos__texte { opacity: 0; transform: translateX(-70px); }
+.js-pret .apropos__scene:not(.entree) .apropos__photo { opacity: 0; transform: translateX(70px); }
+
+/* Les 3 repères invisibles qui déclenchent les étapes (ne pas toucher) */
+.apropos__etapes i { position: absolute; left: 0; width: 1px; height: 33.34%; pointer-events: none; }
+.apropos__etapes i:nth-child(1) { top: 0; }
+.apropos__etapes i:nth-child(2) { top: 33.33%; }
+.apropos__etapes i:nth-child(3) { top: 66.66%; }
+
+/* ----- MOBILE : titre, puis la photo seule au centre ; en défilant, le texte arrive dessous ----- */
+@media (max-width: 800px) {
+  .apropos__scene { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem; padding: 5rem var(--marge) 2rem; }
+  .apropos__titre { margin: 0; }
+  .apropos__photo { order: 1; width: min(78vw, 42vh); justify-self: center; }
+  .apropos__texte { order: 2; overflow: hidden; width: 100%; }
+  .apropos__paragraphe { margin-bottom: 1.2rem; font-size: clamp(1rem, 4.2vw, 1.2rem); }
+
+  .apropos__scene[data-etape="1"] .apropos__texte { max-height: 0; opacity: 0; }
+  .apropos__scene:not([data-etape="1"]) .apropos__photo { width: min(40vw, 20vh); }
+  .apropos__scene:not([data-etape="1"]) .apropos__texte { max-height: 70vh; opacity: 1; }
+  .js-pret .apropos__scene:not(.entree) .apropos__photo { transform: scale(.85); }
+  .js-pret .apropos__scene:not(.entree) .apropos__texte { transform: translateY(20px); }
+}

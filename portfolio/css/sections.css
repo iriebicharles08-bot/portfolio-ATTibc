@@ -1,0 +1,99 @@
+/* =========================================================
+   SECTIONS : mise en page de chaque partie du site
+   ========================================================= */
+.section { position: relative; padding: clamp(5rem, 12vw, 10rem) var(--marge); }
+.section--creme { background: var(--creme); }
+
+/* ----- 1. À propos ----- */
+.apropos { min-height: 100svh; display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--marge); align-items: center; padding: 8rem var(--marge) 4rem; }
+.apropos h1 { margin: 1.2rem 0 2rem; }
+.apropos__paragraphe { max-width: 32em; margin-bottom: 2.2rem; font: 400 1.4rem/1.45 var(--police-titre); }
+.choix-contact { display: none; gap: .6rem; flex-wrap: wrap; margin-top: 1rem; }
+.choix-contact.ouvert { display: flex; }
+
+/* Mots qui passent du gris à la couleur au centre de l'écran (classe "actif" ajoutée par main.js) */
+.mot { color: var(--gris); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: color .8s, background-size .9s; }
+.mot.actif { color: var(--cannelle); background-size: 100% 1px; }
+.mot--marine.actif { color: var(--marine); }
+
+/* Photo : cadre cannelle qui se décale au survol / au toucher */
+.photo { position: relative; justify-self: end; width: min(100%, 440px); aspect-ratio: 4/5; cursor: pointer; }
+.photo__cadre { position: absolute; inset: 0; background: var(--cannelle); transform: translate(20px, 20px); transition: transform .6s var(--courbe); }
+.photo .visuel { position: absolute; inset: 0; }
+.photo figcaption { position: absolute; left: -1.2rem; bottom: 2.5rem; padding: .4rem 1rem; background: var(--ivoire); font: italic 1.4rem var(--police-titre); opacity: 0; transform: translateY(8px); transition: .5s; }
+.photo:hover .photo__cadre, .photo.actif .photo__cadre { transform: translate(8px, 8px); }
+.photo:hover figcaption, .photo.actif figcaption { opacity: 1; transform: none; }
+
+/* ----- 2. Projets : trois compositions différentes (grille de 12 colonnes) ----- */
+.projet { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; align-items: end; margin-top: clamp(4rem, 10vw, 9rem); }
+.projet__grande { aspect-ratio: 4/5; }
+.projet__petite { aspect-ratio: 1; }
+.projet__infos { align-self: center; }
+.projet__infos h3 { margin: .5rem 0; font-size: clamp(2.6rem, 6vw, 5rem); }
+.projet__infos p:not(.etiquette) { max-width: 26em; margin-bottom: 1.2rem; }
+.projet:hover .visuel img { transform: scale(1.04); }
+.lien { padding-bottom: 3px; border-bottom: 1px solid var(--cannelle); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+
+/* Composition A : grande image à gauche, petite à droite */
+.composition-0 .projet__grande { grid-column: 1 / 8;  grid-row: 1 / 3; }
+.composition-0 .projet__infos  { grid-column: 8 / 13; grid-row: 1; }
+.composition-0 .projet__petite { grid-column: 9 / 13; grid-row: 2; }
+/* Composition B : petite à gauche, grande à droite */
+.composition-1 .projet__grande { grid-column: 6 / 13; grid-row: 1 / 3; }
+.composition-1 .projet__infos  { grid-column: 1 / 5;  grid-row: 1; }
+.composition-1 .projet__petite { grid-column: 1 / 5;  grid-row: 2; }
+/* Composition C : image très large, petite image qui chevauche */
+.composition-2 .projet__grande { grid-column: 1 / 13; grid-row: 1; aspect-ratio: 16/8; }
+.composition-2 .projet__petite { grid-column: 9 / 12; grid-row: 1; align-self: end; margin-bottom: -3rem; z-index: 1; }
+.composition-2 .projet__infos  { grid-column: 1 / 8;  grid-row: 2; margin-top: 1rem; }
+
+/* ----- 3. Bandes en mouvement ----- */
+.bandes { overflow: hidden; }
+.bande { padding: clamp(1.5rem, 4vw, 3.5rem) 0; white-space: nowrap; font: 400 clamp(2.6rem, 9vw, 8rem)/1 var(--police-titre); will-change: transform; }
+.bande span { display: inline-block; padding: 0 var(--marge); }
+.bande--marine   { background: var(--marine);   color: var(--ivoire); }
+.bande--cannelle { background: var(--cannelle); color: var(--ivoire); }
+.bande--ivoire   { background: var(--creme);    color: var(--marine); font-style: italic; }
+
+/* ----- 4. Galerie de créations ----- */
+.galerie { columns: 3 260px; column-gap: 1.5rem; }
+.galerie figure { position: relative; margin-bottom: 1.5rem; break-inside: avoid; cursor: zoom-in; }
+.galerie figure[hidden] { display: none; }
+.galerie figcaption { margin-top: .4rem; font-size: .8rem; color: var(--gris); }
+.galerie figure:hover .visuel img { transform: scale(1.05); }
+
+/* ----- 5 et 6. Services & savoir-faire ----- */
+.colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 3rem 2rem; margin-top: 3.5rem; }
+.colonnes article { padding-top: 1rem; border-top: 1px solid var(--marine); }
+.colonnes h3 { margin-bottom: .6rem; color: var(--cannelle); }
+.colonnes small { display: block; margin-top: .8rem; color: var(--gris); }
+
+/* ----- 8. Contact ----- */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: var(--marge); }
+.contact h2 { margin-bottom: 1.5rem; }
+.contact__direct { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
+
+/* ----- Footer ----- */
+.pied { padding: 3rem var(--marge) 2rem; overflow: hidden; background: var(--marine); color: var(--ivoire); }
+.pied hr { margin: .4rem 0; border: 0; border-top: 1px solid rgba(246,241,231,.3); }
+.pied__nom { position: relative; margin: 1rem 0; }
+.pied__nom b { display: block; text-align: center; white-space: nowrap; font: 400 clamp(2.6rem, 12.5vw, 12rem)/1 var(--police-titre); }
+.pied__nom svg { position: absolute; left: 50%; top: 50%; width: min(60%, 520px); transform: translate(-50%, -50%); overflow: visible; }
+.pied .signature { stroke: var(--cannelle); stroke-width: 3; transition: stroke-dashoffset 2.4s cubic-bezier(.5, 0, .2, 1); }
+.pied__devise { margin-bottom: 2rem; text-align: center; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; }
+.pied__bas { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: .8rem; opacity: .85; }
+.pied__bas button { border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+
+/* ----- Mobile : les compositions deviennent verticales ----- */
+@media (max-width: 800px) {
+  .apropos, .contact { grid-template-columns: 1fr; }
+  .photo { justify-self: start; margin-right: 20px; }
+  .projet > * { grid-column: 1 / -1 !important; grid-row: auto !important; margin: 0 !important; }
+  .projet__grande { aspect-ratio: 4/5 !important; }
+  .projet__petite { width: 60%; margin-left: auto !important; }
+}
+
+/* ----- Mode "animations réduites" (bouton du footer) ----- */
+.animations-reduites *, .animations-reduites *::before, .animations-reduites *::after { transition-duration: .01s !important; }
+.animations-reduites #fil, .animations-reduites #intro { display: none; }
+.animations-reduites .signature { stroke-dashoffset: 0; }
