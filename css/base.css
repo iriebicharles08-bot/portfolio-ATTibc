@@ -1,0 +1,38 @@
+/* =========================================================
+   BASE : couleurs, polices, réglages généraux
+   Pour changer les couleurs du site, modifiez UNIQUEMENT ces variables.
+   ========================================================= */
+:root {
+  --ivoire:   #F6F1E7;  /* fond principal */
+    --blanc:    #fffcfc;  /* fond de l'accueil */
+  --creme:    #EBE2D0;  /* zones de contraste doux */
+  --marine:   #b8c7dd;  /* texte et grandes surfaces */
+  --cannelle: #B0612F;  /* accent */
+  --gris:     #6B6A66;  /* texte secondaire */
+
+  --police-titre: 'Instrument Serif', Georgia, serif;
+  --police-texte: 'DM Sans', system-ui, sans-serif;
+
+  --marge: clamp(1.25rem, 5vw, 4.5rem);   /* marge latérale du site */
+  --courbe: cubic-bezier(.2, .7, .2, 1);  /* douceur des animations */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ivoire); color: var(--marine); font: 400 1.0625rem/1.65 var(--police-texte); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--cannelle); outline-offset: 3px; }
+
+h1, h2, h3 { font-family: var(--police-titre); font-weight: 400; line-height: .98; letter-spacing: -.01em; }
+h1 { font-size: clamp(3.4rem, 10vw, 8.5rem); }
+h2 { font-size: clamp(2.8rem, 8vw, 6.5rem); }
+h3 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+
+.etiquette { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gris); }
+
+/* Respect des utilisateurs qui préfèrent moins d'animations */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01s !important; animation: none !important; }
+}

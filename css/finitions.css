@@ -1,0 +1,53 @@
+/* =========================================================
+   PROJETS : cadres grands, deux moitiés d'écran, finitions
+   ========================================================= */
+
+/* ----- Les cadres : l'image remplit tout son cadre et se voit en entier ----- */
+.projet__grande, .projet__petite { position: relative; }
+.projet__grande { aspect-ratio: 4 / 5; }
+.projet__petite { aspect-ratio: 1 / 1; }
+.projet__grande > .visuel, .projet__petite > .visuel { position: absolute; inset: 0; background: #f3f3f3; }   /* #f3f3f3 = fond gris très clair du cadre */
+.projet .visuel img,
+html.fin-projets .projet .visuel img { inset: 0; height: 100%; object-fit: contain; translate: none !important; }
+
+/* ----- Un trait fin entre chaque projet ----- */
+#projets .projet { padding-top: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid rgba(0, 0, 0, .2); }
+
+/* ----- Le lien : trait bleu, flèche qui avance au survol, caché s'il est vide ----- */
+#projets .lien { border-bottom-color: var(--bleu, #4AA8FF); }
+#projets .lien::after { content: " →"; display: inline-block; transition: transform .3s; }
+#projets .lien:hover::after, #projets .lien:focus-visible::after { transform: translateX(5px); }
+#projets a.lien[href="#"] { display: none; }
+
+/* ----- Grand écran : deux images, une moitié chacune, la petite décalée vers le bas ----- */
+@media (min-width: 801px) {
+  #projets .projet {
+    grid-template-columns: 1fr 1fr;                      /* deux moitiés égales */
+    grid-template-rows: auto auto;
+    gap: 1.5rem clamp(1rem, 3vw, 2.5rem);                /* espace entre les deux images */
+    align-items: start;
+  }
+  /* titre à gauche, texte à droite, au-dessus des images */
+  #projets .projet__infos {
+    grid-column: 1 / -1; grid-row: 1; align-self: end; margin: 0 0 1rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: .8rem clamp(1rem, 3vw, 2.5rem); align-items: end;
+  }
+  #projets .projet__infos .etiquette { grid-column: 1 / -1; }
+  #projets .projet__infos h3 { grid-column: 1; margin: 0; }
+  #projets .projet__infos p:not(.etiquette) { grid-column: 2; max-width: 30em; margin: 0; }
+  #projets .projet__infos .lien { grid-column: 2; justify-self: start; }
+
+  /* grande image : moitié gauche, longue */
+  #projets .projet__grande { grid-column: 1; grid-row: 2; align-self: start; aspect-ratio: 4 / 5; margin: 0; }
+  /* petite image : moitié droite, carrée, décalée vers le bas */
+  #projets .projet__petite { grid-column: 2; grid-row: 2; align-self: start; aspect-ratio: 1 / 1; margin: clamp(4rem, 11vw, 9rem) 0 0; z-index: auto; }
+  /* un projet sur deux : les images changent de côté */
+  #projets .projet:nth-child(even) .projet__grande { grid-column: 2; }
+  #projets .projet:nth-child(even) .projet__petite { grid-column: 1; }
+}
+
+/* ----- Téléphone : titre et texte avant les images, petite image plus étroite à droite ----- */
+@media (max-width: 800px) {
+  #projets .projet__infos { order: -1; }
+  #projets .projet__petite { width: 70%; margin-left: auto !important; }
+}
