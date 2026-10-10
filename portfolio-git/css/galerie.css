@@ -1,0 +1,41 @@
+/* =========================================================
+   GALERIE "Créations" : cadres à la bonne forme, effets d'apparition.
+   Chargé APRÈS projets.css. Fonctionne avec le nouveau js/gallery.js.
+   ========================================================= */
+
+/* ----- Le cadre : une zone de la forme de l'image (le ratio vient de js/data.js) ----- */
+#galerie figure { margin-bottom: 1.8rem; cursor: zoom-in; }
+#galerie .galerie__cadre {
+  position: relative; width: 100%;
+  border-radius: 14px;                                                    /* 14px = arrondi des coins */
+  background: #f3f3f3;                                                    /* fond du cadre (visible tant que l'image n'est pas là) */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .12), 0 28px 50px -34px rgba(0, 0, 0, .45);
+  transition: transform .45s var(--courbe, ease);
+}
+/* l'image remplit tout le cadre et se voit EN ENTIER */
+#galerie .galerie__cadre > .visuel { position: absolute; inset: 0; border-radius: 14px; background: transparent; box-shadow: none !important; transform: none !important; }
+#galerie .galerie__cadre .visuel img { object-fit: contain; }
+#galerie figure:hover .visuel img { transform: scale(1.03); }
+@media (hover: hover) { #galerie figure:hover .galerie__cadre { transform: translateY(-5px); } }
+#galerie figure:focus-visible { outline: 2px solid var(--bleu, #4AA8FF); outline-offset: 6px; border-radius: 14px; }
+
+/* légende : petit point bleu devant le titre */
+#galerie figcaption { margin-top: .7rem; font-size: .82rem; letter-spacing: .04em; }
+#galerie figcaption::before { content: ""; display: inline-block; width: .45em; height: .45em; margin-right: .6em; border-radius: 50%; background: var(--bleu, #4AA8FF); }
+
+/* ----- Effet : chaque carte monte et se déploie quand elle apparaît ----- */
+@media (prefers-reduced-motion: no-preference) {
+  html.fin-galerie:not(.animations-reduites) #galerie figure.carte-creation {
+    opacity: 0; translate: 0 44px; scale: .96;                            /* départ : plus bas, plus petite, invisible */
+    transition:
+      opacity .9s ease calc(var(--n, 0) * 90ms),                          /* 90ms = délai entre les colonnes */
+      translate .9s var(--courbe, ease) calc(var(--n, 0) * 90ms),
+      scale .9s var(--courbe, ease) calc(var(--n, 0) * 90ms);
+  }
+  html.fin-galerie:not(.animations-reduites) #galerie figure.carte-creation.revele-creation { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+/* ----- Animations réduites : rien ne tourne ----- */
+@media (prefers-reduced-motion: reduce) { #galerie figure.carte-creation { rotate: none !important; } #galerie .galerie__cadre { transition-duration: .01s; } }
+.animations-reduites #galerie figure.carte-creation { rotate: none !important; }
+.animations-reduites #galerie .galerie__cadre { transition-duration: .01s; }

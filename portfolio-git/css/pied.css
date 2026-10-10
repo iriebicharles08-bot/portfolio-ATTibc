@@ -1,0 +1,76 @@
+/* =========================================================
+   FOOTER : "Parlons-en", contact direct, nom géant avec signature
+   Ce fichier REMPLACE entièrement css/pied.css (s'il existe déjà)
+   ========================================================= */
+
+/* ----- Icônes rondes ----- */
+.icone { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.icone-lien { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: #151515; color: #fff; transition: background .3s, transform .3s var(--courbe); }
+.icone-lien:hover { background: var(--cannelle); transform: translateY(-3px); }
+
+/* ----- Le footer ----- */
+.pied { padding: clamp(4rem, 10vw, 7rem) 0 0; overflow: hidden; background: #FAFAFA; color: #151515; }
+
+.pied__haut {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: ". titre ." ". sous ." "reseaux formulaire coordonnees";
+  align-items: end;
+  gap: 1.2rem;
+  padding: 0 var(--marge) 4rem;
+  text-align: center;
+}
+
+/* Titre en italique avec un trait de surligneur dessous */
+.pied__titre { grid-area: titre; font-size: clamp(3.6rem, 9vw, 7.5rem); font-style: italic; }
+.pied__titre span { background: linear-gradient(var(--cannelle), var(--cannelle)) 0 94% / 100% .14em no-repeat; }
+.pied__sous { grid-area: sous; margin: .4rem 0 .2rem; font-weight: 700; }
+.pied__dispo { display: inline-flex; align-items: center; gap: .5rem; margin-top: .4rem; font-size: .85rem; font-weight: 400; color: #6b6b6b; }
+.pied__dispo::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--cannelle); }
+
+/* Icônes à gauche */
+.pied__reseaux { grid-area: reseaux; display: flex; gap: .7rem; justify-self: start; }
+
+/* Champ message + deux boutons au centre */
+.pied__formulaire { grid-area: formulaire; display: grid; gap: .6rem; justify-items: center; }
+.pied__champ { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: .8rem; }
+.pied__formulaire input { width: min(78vw, 300px); font-family: var(--police-titre); font-size: 1.15rem; }
+.pied__formulaire .bouton { padding: .8rem 1.4rem; text-transform: none; letter-spacing: .02em; font-size: .9rem; }
+.pied__formulaire .bouton--noir { background: #151515; border-color: #151515; color: #fff; }
+.pied__formulaire .bouton--noir:hover { background: var(--cannelle); border-color: var(--cannelle); }
+.pied__erreur { min-height: 1.2em; font-size: .8rem; color: #9B2C1D; }
+
+/* Coordonnées à droite */
+.pied__coordonnees { grid-area: coordonnees; justify-self: end; text-align: right; font-size: .95rem; }
+.pied__coordonnees a { display: block; }
+
+/* Ligne fine entre deux traits */
+.pied__ligne { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .4rem 1.5rem; padding: .8rem var(--marge); border-top: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; font-size: .85rem; }
+.pied__ligne div { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; }
+.pied__ligne button, .pied__ligne a { border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+
+/* Nom géant : sa taille est calculée par js/ambiances.js pour occuper toute la largeur */
+.pied__nom { position: relative; margin: 0; }
+.pied__nom b {
+  display: block;
+  width: max-content;
+  margin: 0 auto -.17em;                    /* le bas du nom est coupé, comme sur ta référence */
+  color: #151515;
+  font-family: var(--police-gras);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: 18vw;                          /* valeur de secours : ajustée automatiquement */
+  line-height: 1;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+.pied__nom svg { position: absolute; left: 50%; top: 50%; width: min(55%, 560px); transform: translate(-50%, -50%); overflow: visible; }
+.pied .signature { stroke: var(--cannelle); stroke-width: 3.5; }
+
+/* ----- Mobile : tout s'empile et se centre ----- */
+@media (max-width: 800px) {
+  .pied__haut { grid-template-columns: 1fr; grid-template-areas: "titre" "sous" "formulaire" "reseaux" "coordonnees"; justify-items: center; }
+  .pied__reseaux { justify-self: center; }
+  .pied__coordonnees { justify-self: center; text-align: center; }
+  .pied__ligne { justify-content: center; text-align: center; }
+}
