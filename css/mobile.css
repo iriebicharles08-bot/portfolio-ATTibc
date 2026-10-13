@@ -79,3 +79,31 @@
   }
   #liste-projets .projet__petite { display: block !important; }
 }
+@media (max-width: 800px) {
+  #liste-projets {
+    display: block !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #liste-projets .projet {
+    display: flex !important;
+    flex-direction: column;
+    flex: none !important;
+    width: 100% !important;
+    margin-top: 3rem;
+    gap: 1.2rem;
+  }
+  #liste-projets .projet__grande {
+    width: 100%;
+  }
+  #liste-projets .projet__petite {
+    display: block !important;
+    width: 72%;
+    align-self: flex-end;
+  }
+  .projets-points {
+    display: none !important;
+  }
+}
