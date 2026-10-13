@@ -28,7 +28,7 @@
             <link rel="stylesheet" href="css/transition.css">
             <link rel="stylesheet" href="css/mobile.css">
             <link rel="stylesheet" href="css/effets-plus.css">
-
+<link rel="stylesheet" href="css/certifications.css">
 </head>
 <body>
 
@@ -65,18 +65,16 @@
 
 <nav id="menu" class="menu" hidden aria-label="Menu principal">
   <ul class="menu__liste">
-    <li><a href="#apropos"><span class="menu__num">01</span><span class="menu__mot">À propos</span></a></li>
-    <li><a href="#projets"><span class="menu__num">02</span><span class="menu__mot">Projets</span></a></li>
-    <li><a href="#creations"><span class="menu__num">03</span><span class="menu__mot">Créations</span></a></li>
-    <li><a href="#services"><span class="menu__num">04</span><span class="menu__mot">Services</span></a></li>
-    <li><a href="#contact"><span class="menu__num">05</span><span class="menu__mot">Contact</span></a></li>
+    <li><a href="#apropos"><span class="menu__num">01-</span><span class="menu__mot">À propos</span></a></li>
+    <li><a href="#projets"><span class="menu__num">02-</span><span class="menu__mot">Projets</span></a></li>
+    <li><a href="#creations"><span class="menu__num">03-</span><span class="menu__mot">Créations</span></a></li>
+    <li><a href="#services"><span class="menu__num">04-</span><span class="menu__mot">Services</span></a></li>
+    <li><a href="#contact"><span class="menu__num">05-</span><span class="menu__mot">Contact</span></a></li>
   </ul>
-  <div class="menu__contact">
-    <p class="menu__etiquette">Écrivez-moi</p>
-    <a data-lien="whatsapp" href="#">WhatsApp</a>
-    <a data-lien="email" href="#">E-mail</a>
-    <a data-lien="linkedin" href="#">LinkedIn</a>
-  </div>
+  <li><a href="#services"><span class="menu__num">06-</span><span class="menu__mot">Services</span></a></li>
+<li><a href="#certifications"><span class="menu__num">07-</span><span class="menu__mot">Certifications</span></a></li>
+<li><a href="#contact"><span class="menu__num">08-</span><span class="menu__mot">Contact</span></a></li>
+  
 </nav>
 
 <!-- Liens à droite, toujours visibles -->
@@ -197,6 +195,71 @@
       <article><h3>Build</h3><p>Web &amp; expérience digitale</p><small>HTML, CSS, JavaScript, notions de Python</small></article>
     </div>
   </section>
+  <!-- 6 bis. CERTIFICATIONS -->
+  <section id="certifications" class="section certs">
+
+    <p class="etiquette" data-en="Certifications">Certifications</p>
+    <h2 data-en="Skills, <em>proven.</em>">Des compétences <em>validées.</em></h2>
+
+    <div class="certs__liste">
+
+      <article class="cert" style="--i:0">
+        <div class="cert__haut">
+          <span class="cert__no">N°01</span>
+        </div>
+        <div class="cert__annee" data-annee="2025" aria-hidden="true">2025</div>
+        <div class="cert__corps">
+          <h3>Python</h3>
+          <svg class="cert__trait" viewBox="0 0 120 8" aria-hidden="true"><path pathLength="1" d="M2 5C30 1 60 8 118 3"/></svg>
+        </div>
+        <div class="cert__pied">
+          <div>
+            <p class="cert__org">GoMyCode</p>
+            <p class="cert__date" data-en="February 2025">Février 2025</p>
+          </div>
+          <svg class="cert__coche" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 12.5l5 5L20 6.5"/></svg>
+        </div>
+      </article>
+
+      <article class="cert" style="--i:1">
+        <div class="cert__haut">
+          <span class="cert__no">N°02</span>
+        </div>
+        <div class="cert__annee" data-annee="2026" aria-hidden="true">2025</div>
+        <div class="cert__corps">
+          <h3 data-en="Cybersecurity">Cybersécurité</h3>
+          <svg class="cert__trait" viewBox="0 0 120 8" aria-hidden="true"><path pathLength="1" d="M2 5C30 1 60 8 118 3"/></svg>
+        </div>
+        <div class="cert__pied">
+          <div>
+            <p class="cert__org">GoMyCode</p>
+            <p class="cert__date" data-en="December 2025">Décembre 2026</p>
+          </div>
+          <svg class="cert__coche" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 12.5l5 5L20 6.5"/></svg>
+        </div>
+      </article>
+
+      <article class="cert" style="--i:2">
+        <div class="cert__haut">
+          <span class="cert__no">N°03</span>
+          <svg class="cert__tampon" viewBox="0 0 120 120" aria-hidden="true"><text><textPath href="#cercle-tampon" textLength="286" lengthAdjust="spacing">CERTIFIÉ · CERTIFIED · CERTIFIÉ · CERTIFIED · </textPath></text></svg>
+        </div>
+        <div class="cert__annee" data-annee="2026" aria-hidden="true">2026</div>
+        <div class="cert__corps">
+          <h3 data-en="Artificial <em>intelligence</em>">Intelligence <em>artificielle</em></h3>
+          <svg class="cert__trait" viewBox="0 0 120 8" aria-hidden="true"><path pathLength="1" d="M2 5C30 1 60 8 118 3"/></svg>
+        </div>
+        <div class="cert__pied">
+          <div>
+            <p class="cert__org"> A-I-B-S </p>
+            <p class="cert__date" data-en="May 2026">Mai 2026</p>
+          </div>
+          <svg class="cert__coche" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 12.5l5 5L20 6.5"/></svg>
+        </div>
+      </article>
+
+    </div>
+  </section>
  
   <!-- 7. LE LAB : à ajouter plus tard quand vous aurez du contenu -->
 
@@ -312,6 +375,7 @@
 <script src="js/transition.js"></script>
 <script src="js/mobile.js"></script>
 <script src="js/effets-plus.js"></script>
+<script src="js/certifications.js"></script>
 
 </body>
 </html>
