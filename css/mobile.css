@@ -63,3 +63,19 @@
 /* Réglage "animations réduites" : pas d'encre, pas de glissement du header */
 .animations-reduites .encre, .animations-reduites .accueil-aide { display: none; }
 .animations-reduites #entete { transition: none; }
+@media (max-width: 800px) {
+  #liste-projets .visuel {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    min-height: 220px;
+  }
+  #liste-projets .visuel img {
+    display: block !important;
+    opacity: 1 !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #liste-projets .projet__petite { display: block !important; }
+}
