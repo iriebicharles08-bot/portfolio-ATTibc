@@ -10,7 +10,16 @@ const projects = [
     description: "Une expérience digitale autour de l'univers du parfum et de la découverte.",
     image: "assets/images/novea-1.jpg",
     secondaryImage: "assets/images/novea-2.jpg",
-    link: "https://iriebicharles08-bot.github.io/NOVEA-PARFUMS/#test",
+    link: "https://iriebicharles08-bot.github.io/NOVEA-PARFUMS/",
+    year: "2026"
+  },
+  {
+    title: "CHRIST LE LAIT SHOP",
+    category: "Boutique de chaussures · Site e-commerce · Commande WhatsApp",
+    description: "Le site d'une vraie boutique de chaussures : le client parcourt le catalogue, choisit sa paire et commande directement sur WhatsApp.",
+    image: "assets/images/christ-lelait-1.jpg",
+    secondaryImage: "assets/images/christ-lelait-2.jpg",
+    link: "https://christ-lelaitshop.pages.dev/",
     year: "2026"
   },
   {
